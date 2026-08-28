@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Connect Digital Media - GitHub Push Utility
+Connect Digital Media - GitHub Push Utility for rush1556/CDM
 Usage:
   python3 push_to_github.py YOUR_GITHUB_PERSONAL_ACCESS_TOKEN
 """
@@ -16,7 +16,7 @@ from dulwich import porcelain
 from dulwich.repo import Repo
 
 REPO_PATH = os.path.dirname(os.path.abspath(__file__))
-GITHUB_REPO = "rush1556/Connect-Digital-Media"
+GITHUB_REPO = "rush1556/CDM"
 
 def push_repo(token=None):
     if not token:
@@ -38,7 +38,7 @@ def push_repo(token=None):
     try:
         porcelain.commit(
             REPO_PATH,
-            message=b"Initial commit: Connect Digital Media complete agency website & admin panel",
+            message=b"Update: Connect Digital Media complete agency website & admin panel",
             author=b"Rushikesh Patil <admin@connectdigitalmedia.co.in>",
             committer=b"Rushikesh Patil <admin@connectdigitalmedia.co.in>"
         )
@@ -52,13 +52,12 @@ def push_repo(token=None):
         print(f"🎉 SUCCESS! All files pushed to: https://github.com/{GITHUB_REPO}")
         return True
     except Exception as e:
-        # Try pushing to master branch fallback if main fails
         try:
             porcelain.push(REPO_PATH, remote_url, "refs/heads/main:refs/heads/master")
             print(f"🎉 SUCCESS! All files pushed to: https://github.com/{GITHUB_REPO}")
             return True
         except Exception as e2:
-            print(f"❌ Push error: {e}")
+            print(f"❌ Push error: {e2}")
             return False
 
 if __name__ == "__main__":
